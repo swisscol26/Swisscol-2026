@@ -2,241 +2,365 @@
         AUTENTICACIÓN SWISSCOL
 ======================================*/
 
-const btnUsuarioAuth = document.getElementById("btnUsuario");
+const API_AUTH_URL =
+    "http://localhost:8080/api/auth";
 
-const panelAuth = document.getElementById("panelAuth");
+    // Elimina credenciales guardadas por la versión anterior.
+localStorage.removeItem("usuarioSwisscol");
 
-const cerrarAuth = document.getElementById("cerrarAuth");
+const btnUsuarioAuth =
+    document.getElementById("btnUsuario");
 
-const formLogin = document.getElementById("formLogin");
+const panelAuth =
+    document.getElementById("panelAuth");
 
-const formRegistro = document.getElementById("formRegistro");
+const cerrarAuth =
+    document.getElementById("cerrarAuth");
 
-const perfilUsuario = document.getElementById("perfilUsuario");
+const formLogin =
+    document.getElementById("formLogin");
 
-const mostrarRegistro = document.getElementById("mostrarRegistro");
+const formRegistro =
+    document.getElementById("formRegistro");
 
-const mostrarLogin = document.getElementById("mostrarLogin");
+const perfilUsuario =
+    document.getElementById("perfilUsuario");
 
-const nombreUsuario = document.getElementById("nombreUsuario");
+const mostrarRegistro =
+    document.getElementById("mostrarRegistro");
 
-const correoUsuario = document.getElementById("correoUsuario");
+const mostrarLogin =
+    document.getElementById("mostrarLogin");
 
-const btnCerrarSesion = document.getElementById("btnCerrarSesion");
+const nombreUsuario =
+    document.getElementById("nombreUsuario");
 
-const contenidoUsuario = document.getElementById("contenidoUsuario");
+const correoUsuario =
+    document.getElementById("correoUsuario");
+
+const btnCerrarSesion =
+    document.getElementById("btnCerrarSesion");
+
+const contenidoUsuario =
+    document.getElementById("contenidoUsuario");
+
+
+/*======================================
+        APERTURA DEL PANEL
+======================================*/
 
 btnUsuarioAuth.addEventListener("click", () => {
-
     panelAuth.classList.add("activo");
-
 });
 
 cerrarAuth.addEventListener("click", () => {
-
     panelAuth.classList.remove("activo");
-
 });
 
-document.addEventListener("click",(e)=>{
+document.addEventListener("click", (e) => {
 
-    if(
+    if (
         !panelAuth.contains(e.target)
-        &&
-        !btnUsuarioAuth.contains(e.target)
-    ){
-
+        && !btnUsuarioAuth.contains(e.target)
+    ) {
         panelAuth.classList.remove("activo");
-
     }
-
 });
 
-panelAuth.addEventListener("click",(e)=>{
-
+panelAuth.addEventListener("click", (e) => {
     e.stopPropagation();
-
 });
 
-mostrarRegistro.addEventListener("click",(e)=>{
+
+/*======================================
+        CAMBIO DE FORMULARIOS
+======================================*/
+
+mostrarRegistro.addEventListener("click", (e) => {
 
     e.preventDefault();
 
     formLogin.classList.remove("activo");
+    formLogin.style.display = "none";
 
     formRegistro.classList.add("activo");
-
+    formRegistro.style.display = "block";
 });
 
-mostrarLogin.addEventListener("click",(e)=>{
+mostrarLogin.addEventListener("click", (e) => {
 
     e.preventDefault();
+
+    mostrarFormularioLogin();
+});
+
+function mostrarFormularioLogin() {
 
     formRegistro.classList.remove("activo");
+    formRegistro.style.display = "none";
 
     formLogin.classList.add("activo");
+    formLogin.style.display = "block";
+}
 
-});
 
-formRegistro.addEventListener("submit",(e)=>{
+/*======================================
+        REGISTRO CON LA API
+======================================*/
 
-    e.preventDefault();
+formRegistro.addEventListener(
+    "submit",
+    async (e) => {
 
-    const usuario={
+        e.preventDefault();
 
-        nombre:document.getElementById("registroNombre").value,
+        const solicitud = {
 
-        correo:document.getElementById("registroCorreo").value,
+            nombre: document
+                .getElementById("registroNombre")
+                .value
+                .trim(),
 
-        password:document.getElementById("registroPassword").value
+            correo: document
+                .getElementById("registroCorreo")
+                .value
+                .trim(),
 
-    };
+            password: document
+                .getElementById("registroPassword")
+                .value,
 
-    localStorage.setItem("usuarioSwisscol",JSON.stringify(usuario));
+            confirmarPassword: document
+                .getElementById("registroConfirmar")
+                .value
+        };
 
-    alert("Cuenta creada correctamente");
+        try {
 
-    formRegistro.reset();
+            const respuesta = await fetch(
+                `${API_AUTH_URL}/registro`,
+                {
+                    method: "POST",
+                    headers: {
+                        "Content-Type":
+                            "application/json"
+                    },
+                    body: JSON.stringify(solicitud)
+                }
+            );
 
-    formRegistro.classList.remove("activo");
+            const datos = await respuesta.json();
 
-    formLogin.classList.add("activo");
+            if (!respuesta.ok) {
 
-});
+                alert(
+                    datos.mensaje
+                    || "No fue posible crear la cuenta."
+                );
 
-formLogin.addEventListener("submit",(e)=>{
+                return;
+            }
 
-    e.preventDefault();
+            alert(datos.mensaje);
 
-    const usuario=JSON.parse(localStorage.getItem("usuarioSwisscol"));
+            formRegistro.reset();
+            mostrarFormularioLogin();
 
-    if(!usuario){
+        } catch (error) {
 
-        alert("No existe ninguna cuenta.");
+            console.error(
+                "Error al registrar:",
+                error
+            );
 
-        return;
-
+            alert(
+                "No fue posible conectar con el servidor."
+            );
+        }
     }
+);
 
-    const correo=document.getElementById("loginCorreo").value;
 
-    const password=document.getElementById("loginPassword").value;
+/*======================================
+        LOGIN CON LA API
+======================================*/
 
-    if(
+formLogin.addEventListener(
+    "submit",
+    async (e) => {
 
-        correo===usuario.correo
+        e.preventDefault();
 
-        &&
+        const solicitud = {
 
-        password===usuario.password
+            correo: document
+                .getElementById("loginCorreo")
+                .value
+                .trim(),
 
-    ){
+            password: document
+                .getElementById("loginPassword")
+                .value
+        };
 
-        iniciarSesion(usuario);
+        try {
 
-    }else{
+            const respuesta = await fetch(
+                `${API_AUTH_URL}/login`,
+                {
+                    method: "POST",
+                    headers: {
+                        "Content-Type":
+                            "application/json"
+                    },
+                    body: JSON.stringify(solicitud)
+                }
+            );
 
-        alert("Correo o contraseña incorrectos");
+            const datos = await respuesta.json();
 
+            if (!respuesta.ok) {
+
+                alert(
+                    datos.mensaje
+                    || "No fue posible iniciar sesión."
+                );
+
+                return;
+            }
+
+            const usuario = {
+
+                usuarioId: datos.usuarioId,
+                nombre: datos.nombre,
+                correo: datos.correo,
+                rol: datos.rol
+            };
+
+            iniciarSesion(usuario);
+            formLogin.reset();
+
+        } catch (error) {
+
+            console.error(
+                "Error al iniciar sesión:",
+                error
+            );
+
+            alert(
+                "No fue posible conectar con el servidor."
+            );
+        }
     }
+);
 
-});
 
-function iniciarSesion(usuario){
+/*======================================
+        ESTADO DE LA SESIÓN
+======================================*/
 
-    formLogin.style.display="none";
+function iniciarSesion(usuario) {
 
-    formRegistro.style.display="none";
+    localStorage.setItem(
+        "sesionSwisscol",
+        JSON.stringify(usuario)
+    );
+
+    mostrarSesion(usuario);
+}
+
+function mostrarSesion(usuario) {
+
+    formLogin.style.display = "none";
+    formRegistro.style.display = "none";
 
     perfilUsuario.classList.add("activo");
 
-    nombreUsuario.textContent=usuario.nombre;
+    nombreUsuario.textContent =
+        usuario.nombre;
 
-    correoUsuario.textContent=usuario.correo;
-
-    const sesion = {
-
-        nombre: usuario.nombre,
-    
-        correo: usuario.correo
-    
-    };
-    
-    localStorage.setItem(
-    
-        "sesionSwisscol",
-    
-        JSON.stringify(sesion)
-    
-    );
+    correoUsuario.textContent =
+        usuario.correo;
 
     actualizarHeaderUsuario(usuario);
-
-    actualizarEstadoUsuario();
-
 }
 
-function actualizarHeaderUsuario(usuario){
-    const primerNombre = usuario.nombre.split(" ")[0];
+function actualizarHeaderUsuario(usuario) {
 
-    btnUsuarioAuth.classList.add("usuario-activo");
+    const primerNombre =
+        usuario.nombre.split(" ")[0];
 
-    contenidoUsuario.innerHTML = `
-        <span>👤</span>
-        <span>${primerNombre}</span>
-    `;
-}
-
-btnCerrarSesion.addEventListener("click",()=>{
-
-    localStorage.removeItem("sesionSwisscol");
-
-    perfilUsuario.classList.remove("activo");
-
-    formLogin.style.display="block";
-
-    panelAuth.classList.remove("activo");
-
-    btnUsuarioAuth.classList.remove("usuario-activo");
-    
-    contenidoUsuario.innerHTML = "👤";
-
-    actualizarEstadoUsuario();
-
-});
-
-function actualizarEstadoUsuario(){
-
-    const sesion = JSON.parse(
-
-        localStorage.getItem("sesionSwisscol")
-
+    btnUsuarioAuth.classList.add(
+        "usuario-activo"
     );
 
-    if(sesion){
+    contenidoUsuario.replaceChildren();
 
-        btnUsuarioAuth.classList.add("usuario-activo");
+    const icono =
+        document.createElement("span");
 
-        actualizarHeaderUsuario(sesion);
-  
-    }else{
+    icono.textContent = "👤";
 
-        btnUsuarioAuth.classList.remove("usuario-activo");
+    const texto =
+        document.createElement("span");
 
-        contenidoUsuario.innerHTML = "👤";
+    texto.textContent = primerNombre;
 
-    }
-
+    contenidoUsuario.append(
+        icono,
+        texto
+    );
 }
 
-function verificarSesion(){
-    const sesion = JSON.parse(localStorage.getItem("sesionSwisscol"));
+btnCerrarSesion.addEventListener(
+    "click",
+    () => {
 
-    if(sesion){
-        actualizarHeaderUsuario(sesion);
+        localStorage.removeItem(
+            "sesionSwisscol"
+        );
+
+        perfilUsuario.classList.remove(
+            "activo"
+        );
+
+        btnUsuarioAuth.classList.remove(
+            "usuario-activo"
+        );
+
+        contenidoUsuario.textContent = "👤";
+
+        mostrarFormularioLogin();
+
+        panelAuth.classList.remove("activo");
+    }
+);
+
+function verificarSesion() {
+
+    try {
+
+        const sesion = JSON.parse(
+            localStorage.getItem(
+                "sesionSwisscol"
+            )
+        );
+
+        if (sesion) {
+            mostrarSesion(sesion);
+        }
+
+    } catch (error) {
+
+        localStorage.removeItem(
+            "sesionSwisscol"
+        );
+
+        console.error(
+            "La sesión almacenada no es válida.",
+            error
+        );
     }
 }
 
 verificarSesion();
-
-
