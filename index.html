@@ -53,7 +53,7 @@
 
             <a href="#productos">Navajas</a>
 
-            <a href="#colecciones">Colecciones</a>
+            <a href="#colecciones">Categorías</a>
 
             <a href="#ofertas">Ofertas</a>
 
@@ -63,29 +63,80 @@
 
         <div class="header-icons">
 
-            <div class="busqueda">
+           <div class="busqueda">
+    <button
+        id="btnBuscar"
+        class="btn-icono"
+        type="button"
+        aria-label="Abrir buscador"
+    >
+        🔍
+    </button>
 
-                <button id="btnBuscar" class="btn-icono">
-                    🔍
-                </button>
-            
-                <div class="panel-busqueda" id="panelBusqueda">
-            
-                    <input
-                        type="text"
-                        id="inputBuscar"
-                        placeholder="Buscar productos..."
-                    >
-                    
-                </div>
-            
-            </div>
+    <div class="panel-busqueda" id="panelBusqueda">
+        <label for="inputBuscar">Buscar productos</label>
+        <input
+            type="search"
+            id="inputBuscar"
+            placeholder="Nombre o palabra clave..."
+        >
+
+        <label for="filtroCategoria">Categoría</label>
+        <select id="filtroCategoria">
+            <option value="">Todas las categorías</option>
+        </select>
+
+        <label for="precioMinimo">Precio mínimo</label>
+        <input
+            type="number"
+            id="precioMinimo"
+            min="0"
+            step="1000"
+            placeholder="Sin mínimo"
+        >
+
+        <label for="precioMaximo">Precio máximo</label>
+        <input
+            type="number"
+            id="precioMaximo"
+            min="0"
+            step="1000"
+            placeholder="Sin máximo"
+        >
+
+        <label for="filtroDisponibilidad">Disponibilidad</label>
+        <select id="filtroDisponibilidad">
+            <option value="">Todos los productos</option>
+            <option value="disponibles">Con existencias</option>
+            <option value="agotados">Agotados</option>
+        </select>
+
+        <button
+            type="button"
+            id="limpiarFiltros"
+            class="btn-outline"
+        >
+            Limpiar filtros
+        </button>
+
+        <p id="mensajeFiltros" role="status"></p>
+        </div>
+        </div>
 
             <button id="btnUsuario" class="btn-icono">
                 <span id="contenidoUsuario">👤</span>
             </button>
 
-            <button id="btnCarrito">
+            <button
+            type="button"
+            id="btnNotificaciones"
+            class="btn-icono"
+            aria-label="Ver notificaciones"
+        >
+            <span aria-hidden="true">🔔</span>
+            <span id="contador-notificaciones" class="notificaciones-badge" hidden aria-hidden="true"></span>
+        </button>
+            <button type="button" id="btnCarrito" aria-label="Abrir carrito">
                 🛒
                 <span id="contador-carrito">0</span>
             </button>
@@ -96,270 +147,159 @@
     <section class="hero" id="inicio">
 
         <div class="hero-texto">
-    
+
             <span class="etiqueta">
-    
+
                 Productos 100% Originales
-    
+
             </span>
-    
+
             <h1>
-    
+
                 La herramienta perfecta para cada aventura.
-    
+
             </h1>
-    
+
             <p>
-    
+
                 Descubre toda la línea Victorinox con garantía,
                 envío a todo Colombia y precios exclusivos.
-    
+
             </p>
-    
+
             <div class="hero-botones">
-    
-                <button class="btn-rojo">
-    
-                    Comprar ahora
-    
-                </button>
-    
-                <button class="btn-blanco">
-    
-                    Ver catálogo
-    
-                </button>
-    
-            </div>
-    
+            <button
+                type="button"
+                class="btn-rojo"
+                id="btnExplorarCatalogo"
+            >
+                Explorar catálogo
+            </button>
+
+            <button
+                type="button"
+                class="btn-blanco"
+                id="btnAyudameElegir"
+            >
+                Ayúdame a elegir
+            </button>
         </div>
-    
+
+        </div>
+
         <div class="hero-imagen">
-    
+
             <img src="img/hero/navaja-principal.png"
                 alt="Victorinox">
-    
-        </div>
-    
-    </section>
-    <section class="categorias">
 
-        <h2>
-    
-            Explora por categoría
-    
-        </h2>
-    
-        <div class="categorias-grid">
-    
-            <div class="categoria">
-    
-                🏕️
-    
-                <h3>Camping</h3>
-    
-            </div>
-    
-            <div class="categoria">
-    
-                🍳
-    
-                <h3>Cocina</h3>
-    
-            </div>
-    
-            <div class="categoria">
-    
-                🎒
-    
-                <h3>Outdoor</h3>
-    
-            </div>
-    
-            <div class="categoria">
-    
-                🎁
-    
-                <h3>Regalos</h3>
-    
-            </div>
-    
         </div>
-    
+
     </section>
     <section class="productos" id="productos">
 
         <div class="titulo-seccion">
-    
+
             <h2>
-    
+
                 Los más vendidos
-    
+
             </h2>
-    
+
             <p>
-    
+
                 Descubre los productos favoritos de nuestros clientes.
-    
+
             </p>
-    
+
         </div>
-    
+
         <div class="productos-grid" id="contenedor-productos">
-    
+
         </div>
-    
-    </section>
+
     <section class="colecciones" id="colecciones">
 
-        <div class="titulo-seccion">
-    
-            <h2>
-    
-                Nuestras Colecciones
-    
-            </h2>
-    
-        </div>
-    
-        <div class="colecciones-grid">
-    
-            <article class="coleccion">
-    
-                <img src="img/colecciones/camping.jpg">
-    
-                <h3>Camping</h3>
-    
-            </article>
-    
-            <article class="coleccion">
-    
-                <img src="img/colecciones/outdoor.jpg">
-    
-                <h3>Outdoor</h3>
-    
-            </article>
-    
-            <article class="coleccion">
-    
-                <img src="img/colecciones/cocina.jpg">
-    
-                <h3>Cocina</h3>
-    
-            </article>
-    
-            <article class="coleccion">
-    
-                <img src="img/colecciones/premium.jpg">
-    
-                <h3>Premium</h3>
-    
-            </article>
-    
-        </div>
-    
-    </section>
-    <!--=========================
-        BANNER PROMOCIONAL
-    ==========================-->
+    <div class="titulo-seccion">
+        <h2>Explora nuestras categorías</h2>
+    </div>
 
-    <section class="banner-promocional">
+    <div class="colecciones-grid">
 
-        <div class="banner-contenido">
+        <a class="coleccion"
+            href="#productos"
+            data-categoria-id="1">
+            <img src="img/colecciones/premium.jpg" alt="">
+            <h3>Navajas</h3>
+        </a>
 
-            <span class="descuento">
-                HASTA
-            </span>
+        <a class="coleccion"
+            href="#productos"
+            data-categoria-id="2">
+            <img src="img/colecciones/cocina.jpg" alt="">
+            <h3>Cuchillos</h3>
+        </a>
 
-            <h2>
-                35% OFF
-            </h2>
+        <a class="coleccion"
+            href="#productos"
+            data-categoria-id="3">
+            <img src="img/colecciones/herramientas.jpg" alt="">
+            <h3>Herramientas</h3>
+        </a>
 
-            <p>
-                Aprovecha nuestras promociones exclusivas en productos Victorinox.
-                Solo por tiempo limitado.
-            </p>
+        <a class="coleccion"
+            href="#productos"
+            data-categoria-id="4">
+            <img src="img/colecciones/accesorios.jpg" alt="">
+            <h3>Accesorios</h3>
+        </a>
 
-            <button class="btn-rojo">
-                Comprar Ahora
-            </button>
+    </div>
+</section>
+<!-- BANNER PROMOCIONAL -->
+<section
+    class="banner-promocional"
+    id="bannerOfertas"
+    hidden
+>
+    <div class="banner-contenido">
+        <span class="descuento">HASTA</span>
 
-        </div>
+        <h2 id="descuentoMaximo"></h2>
 
-    </section>
-    <!--=========================
-                OFERTAS
-    ==========================-->
+        <p>
+            Descubre los productos con precio de oferta
+            disponibles en nuestro catálogo.
+        </p>
 
-    <section class="ofertas" id="ofertas">
+        <button
+            type="button"
+            class="btn-rojo"
+            id="btnVerOfertas"
+        >
+            Ver ofertas
+        </button>
+    </div>
+</section>
 
-        <div class="titulo-seccion">
+<!-- OFERTAS -->
+<section class="ofertas" id="ofertas">
+    <div class="titulo-seccion">
+        <h2>Ofertas disponibles</h2>
 
-            <h2>Ofertas del Mes</h2>
+        <p>
+            Consulta nuestros productos con precio especial.
+        </p>
+    </div>
 
-            <p>
-                No dejes pasar estas increíbles promociones.
-            </p>
+    <p id="mensajeOfertas" role="status">
+        Cargando ofertas...
+    </p>
 
-        </div>
-
-        <div class="ofertas-grid">
-
-            <article class="oferta-card">
-
-                <span class="porcentaje">-30%</span>
-
-                <img src="img/productos/huntsman.png" alt="Huntsman">
-
-                <h3>Victorinox Huntsman</h3>
-
-                <p class="precio-anterior">$210.000</p>
-
-                <p class="precio-actual">$150.000</p>
-
-                <button class="btn-rojo">
-                    Comprar
-                </button>
-
-            </article>
-
-            <article class="oferta-card">
-
-                <span class="porcentaje">-25%</span>
-
-                <img src="img/productos/explorer.png" alt="Explorer">
-
-                <h3>Victorinox Explorer</h3>
-
-                <p class="precio-anterior">$330.000</p>
-
-                <p class="precio-actual">$250.000</p>
-
-                <button class="btn-rojo">
-                    Comprar
-                </button>
-
-            </article>
-
-            <article class="oferta-card">
-
-                <span class="porcentaje">-20%</span>
-
-                <img src="img/productos/spartan.png" alt="Spartan">
-
-                <h3>Victorinox Spartan</h3>
-
-                <p class="precio-anterior">$610.000</p>
-
-                <p class="precio-actual">$485.000</p>
-
-                <button class="btn-rojo">
-                    Comprar
-                </button>
-
-            </article>
-
-        </div>
+    <div
+        class="ofertas-grid"
+        id="contenedor-ofertas"
+    ></div>
+</section>
 
     </section>
     <!--=========================
@@ -464,11 +404,37 @@
 
             </p>
 
-            <button class="btn-rojo">
+            <button
+            type="button"
+            class="btn-rojo"
+            id="btnConocerMas"
+            aria-expanded="false"
+            aria-controls="nosotrosAmpliado"
+        >
+            Conocer más
+        </button>
 
-                Conocer más
+        <div id="nosotrosAmpliado" hidden>
+            <h3>Una herramienta para cada necesidad</h3>
+            <p>
+                Explora nuestras categorías y consulta las características
+                técnicas de cada producto. Si necesitas orientación,
+                utiliza “Ayúdame a elegir” para buscar según tu presupuesto.
+            </p>
 
-            </button>
+            <h3>¿Cómo comprar en SwissCol?</h3>
+            <p>
+                Inicia sesión, agrega los productos al carrito y envía
+                tu solicitud de compra. El vendedor revisará el pedido
+                antes de confirmar la venta.
+            </p>
+
+            <h3>Consulta tus pedidos</h3>
+            <p>
+                Desde tu cuenta puedes entrar a “Mis pedidos” para
+                consultar tus solicitudes y revisar su estado.
+            </p>
+        </div>
 
         </div>
 
@@ -553,33 +519,36 @@
     ==========================-->
 
     <section class="newsletter">
-
-        <h2>
-
-            Recibe nuestras promociones
-
-        </h2>
-
-        <p>
-
-            Suscríbete y recibe descuentos exclusivos.
-
-        </p>
-
-        <form>
-
-            <input
-                type="email"
-                placeholder="Ingresa tu correo">
-
-            <button class="btn-rojo">
-
-                Suscribirme
-
-            </button>
-
-        </form>
-
+        <h2>Te ayudamos a elegir</h2>
+        <p>Consulta por WhatsApp las características de un producto o el estado de tu pedido.</p>
+        <a class="btn-rojo" href="https://wa.me/573008008180" target="_blank" rel="noopener noreferrer">Hablar con SwissCol</a>
+    </section>
+    <section class="ayuda-cliente" id="preguntas-frecuentes">
+        <h2>Preguntas frecuentes</h2>
+        <details>
+            <summary>¿Cómo hago un pedido?</summary>
+            <p>Agrega los productos al carrito, inicia sesión y envía tu solicitud. Puedes consultar su estado en Mis pedidos.</p>
+        </details>
+        <details>
+            <summary>¿Cuándo debo pagar y cuánto cuesta el envío?</summary>
+            <p>Espera la aprobación del pedido. En Mis pedidos aparecerán el costo de envío, el total y los datos para pagar por Nequi. Revisa el plazo indicado antes de transferir.</p>
+        </details>
+        <details>
+            <summary>¿Qué hago después de pagar?</summary>
+            <p>Escribe la referencia de la transacción en Mis pedidos y pulsa Ya realicé el pago. SwissCol revisará el movimiento antes de confirmar el pago y el pedido.</p>
+        </details>
+        <details>
+            <summary>¿Cómo consulto el tiempo de entrega?</summary>
+            <p>Escríbenos por WhatsApp al (+57) 300 800 8180 con tu destino y número de pedido para consultar las condiciones de envío.</p>
+        </details>
+        <div id="garantia" class="garantia-cliente">
+            <h2>Garantía de los productos</h2>
+            <p>La cobertura de garantía Victorinox depende de la categoría y del modelo del producto. No todos los artículos tienen el mismo plazo ni las mismas condiciones.</p>
+            <p>Para sus navajas suizas, Victorinox informa cobertura frente a defectos de materiales o fabricación durante la vida útil del producto en condiciones de uso normal, con excepciones para componentes electrónicos y determinados accesorios. Consulta las condiciones oficiales y la documentación de tu producto.</p>
+            <p>Para solicitar una revisión, comunícate con SwissCol al (+57) 300 800 8180. Indica tu pedido, describe el problema y adjunta fotografías que permitan revisarlo. Te orientaremos sobre el procedimiento correspondiente.</p>
+            <p>Esta información no limita los derechos legales del consumidor aplicables a la compra.</p>
+            <a href="https://www.victorinox.com/es/Navajas-Suizas/Service/Preguntas-frecuentes-sobre-navajas-suizas/cms/service-swiss-army-knives-faq/" target="_blank" rel="noopener noreferrer">Consultar información oficial de Victorinox sobre sus navajas</a>
+        </div>
     </section>
     <!--====================================
                 FOOTER
@@ -618,9 +587,9 @@
 
                 <a href="#nosotros">Nosotros</a>
 
-                <a href="#">Preguntas Frecuentes</a>
+                <a href="#preguntas-frecuentes">Preguntas frecuentes</a>
 
-                <a href="#">Políticas de Garantía</a>
+                <a href="#garantia">Garantía</a>
 
             </div>
 
@@ -630,9 +599,9 @@
 
                 <p>📍 Bogotá D.C.</p>
 
-                <p>📞 (+57) 300 123 4567</p>
+                <a href="https://wa.me/573008008180" target="_blank" rel="noopener noreferrer">WhatsApp: (+57) 300 800 8180</a>
 
-                <p>✉ contacto@swisscol.com</p>
+                <!-- Correo de atención pendiente de confirmar por el responsable. -->
 
             </div>
 
@@ -744,23 +713,23 @@
                 <div class="modal-caracteristicas">
 
                     <div>
-                
+
                         🚚 Envío gratis
-                
+
                     </div>
-                
+
                     <div>
-                
+
                         🔒 Compra segura
-                
+
                     </div>
-                
+
                     <div>
-                
+
                         ✔ Garantía SwissCol
-                
+
                     </div>
-                
+
                 </div>
 
                 <p id="modalDescripcion"></p>
@@ -807,45 +776,45 @@
             <h2 id="authTitulo">Iniciar sesión</h2>
             <button id="cerrarAuth">✕</button>
         </div>
-    
+
         <div class="auth-body">
-    
+
             <form id="formLogin" class="auth-form activo">
                 <input type="email" id="loginCorreo" placeholder="Correo electrónico" required>
                 <input type="password" id="loginPassword" placeholder="Contraseña" required>
-    
+
                 <button type="submit" class="btn-rojo">Ingresar</button>
-    
+
                 <p>
                     ¿No tienes cuenta?
                     <a href="#" id="mostrarRegistro">Crear cuenta</a>
                 </p>
             </form>
-    
+
             <form id="formRegistro" class="auth-form">
                 <input type="text" id="registroNombre" placeholder="Nombre completo" required>
                 <input type="email" id="registroCorreo" placeholder="Correo electrónico" required>
                 <input type="password" id="registroPassword" placeholder="Contraseña" required>
                 <input type="password" id="registroConfirmar" placeholder="Confirmar contraseña" required>
-    
+
                 <button type="submit" class="btn-rojo">Registrarme</button>
-    
+
                 <p>
                     ¿Ya tienes cuenta?
                     <a href="#" id="mostrarLogin">Iniciar sesión</a>
                 </p>
             </form>
-    
+
             <div id="perfilUsuario" class="perfil-usuario">
                 <h3 id="nombreUsuario"></h3>
                 <p id="correoUsuario"></p>
-    
+
                 <button class="btn-outline" id="btnHistorial">Mis pedidos</button>
                 <button class="btn-rojo" id="btnCerrarSesion">Cerrar sesión</button>
             </div>
-    
+
         </div>
-    
+
     </aside>
 
     <aside class="panel-historial" id="panelHistorial">
@@ -854,15 +823,118 @@
             <h2>Mis pedidos</h2>
             <button id="cerrarHistorial">✕</button>
         </div>
-    
-        <div id="listaPedidos" class="lista-pedidos"></div>
-    
+
+        <div id="listaPedidos" class="lista-pedidos" tabindex="0" role="region" aria-label="Lista de mis pedidos"></div>
+
     </aside>
+
+    <dialog id="dialogEnvio" aria-labelledby="tituloEnvio">
+    <form id="formDatosEnvio">
+        <div class="envio-encabezado">
+            <h2 id="tituloEnvio">Datos de envío</h2>
+
+            <button
+                type="button"
+                id="cerrarEnvio"
+                aria-label="Cerrar datos de envío"
+            >
+                ✕
+            </button>
+        </div>
+
+        <p>
+            Indica quién recibirá el pedido y dónde debemos enviarlo.
+            Esta solicitud todavía no confirma el pago ni el despacho.
+        </p>
+
+        <label for="envioNombre">Nombre de quien recibe</label>
+        <input
+            type="text"
+            id="envioNombre"
+            name="nombreDestinatario"
+            autocomplete="shipping name"
+            maxlength="100"
+            required
+        >
+
+        <label for="envioTelefono">Teléfono de contacto</label>
+        <input
+            type="tel"
+            id="envioTelefono"
+            name="telefonoDestinatario"
+            autocomplete="shipping tel"
+            maxlength="20"
+            placeholder="Ejemplo: 3001234567"
+            required
+        >
+
+        <label for="envioDepartamento">Departamento</label>
+        <input
+            type="text"
+            id="envioDepartamento"
+            name="departamento"
+            autocomplete="shipping address-level1"
+            maxlength="100"
+            required
+        >
+
+        <label for="envioCiudad">Ciudad o municipio</label>
+        <input
+            type="text"
+            id="envioCiudad"
+            name="ciudad"
+            autocomplete="shipping address-level2"
+            maxlength="100"
+            required
+        >
+
+        <label for="envioDireccion">Dirección completa</label>
+        <input
+            type="text"
+            id="envioDireccion"
+            name="direccion"
+            autocomplete="shipping address-line1"
+            maxlength="200"
+            placeholder="Incluye casa, apartamento o ubicación de la vereda"
+            required
+        >
+
+        <label for="envioBarrio">Barrio (opcional)</label>
+        <input
+            type="text"
+            id="envioBarrio"
+            name="barrio"
+            maxlength="100"
+        >
+
+        <label for="envioIndicaciones">
+            Indicaciones para la entrega (opcional)
+        </label>
+        <textarea
+            id="envioIndicaciones"
+            name="indicaciones"
+            maxlength="500"
+            rows="3"
+            placeholder="Referencias para encontrar la dirección"
+        ></textarea>
+
+        <p id="mensajeEnvio" role="status"></p>
+
+        <button
+            type="submit"
+            id="enviarSolicitudPedido"
+            class="btn-rojo"
+        >
+            Enviar solicitud de compra
+        </button>
+    </form>
+</dialog>
 
     <!--====================================
                 JAVASCRIPT
     =====================================-->
 
+    <script src="js/config.js"></script>
     <script src="js/productos.js"></script>
 
     <script src="js/carrito.js"></script>
@@ -876,6 +948,120 @@
     <script src="js/historial.js"></script>
 
     <script src="js/app.js"></script>
+
+    <dialog id="guiaProductos" aria-labelledby="tituloGuia">
+    <form id="formGuiaProductos">
+        <div class="guia-encabezado">
+            <h2 id="tituloGuia">Encuentra tu próxima herramienta</h2>
+
+            <button
+                type="button"
+                id="cerrarGuia"
+                aria-label="Cerrar guía"
+            >
+                ✕
+            </button>
+        </div>
+
+        <p>
+            Elige tus preferencias y te mostraremos
+            los productos que coincidan.
+        </p>
+
+        <label for="guiaCategoria">¿Qué estás buscando?</label>
+        <select id="guiaCategoria">
+            <option value="">Todas las categorías</option>
+        </select>
+
+        <label for="guiaPresupuestoMinimo">
+            Presupuesto mínimo
+        </label>
+        <input
+            type="number"
+            id="guiaPresupuestoMinimo"
+            min="0"
+            step="any"
+            placeholder="Sin mínimo"
+        >
+
+        <label for="guiaPresupuesto">
+            Presupuesto máximo
+        </label>
+        <input
+            type="number"
+            id="guiaPresupuesto"
+            min="0"
+            step="any"
+            placeholder="Sin máximo"
+        >
+
+        <label class="guia-disponibilidad">
+            <input
+                type="checkbox"
+                id="guiaDisponibles"
+                checked
+            >
+            Mostrar solo productos con existencias
+        </label>
+
+        <p id="mensajeGuia" role="status"></p>
+
+        <button
+            type="submit"
+            class="btn-rojo"
+            id="verResultadosGuia"
+        >
+            Ver productos
+        </button>
+    </form>
+</dialog>
+
+<script>
+    const btnConocerMas = document.getElementById("btnConocerMas");
+    const nosotrosAmpliado =
+        document.getElementById("nosotrosAmpliado");
+
+    btnConocerMas.addEventListener("click", () => {
+        const abrir = nosotrosAmpliado.hidden;
+
+        nosotrosAmpliado.hidden = !abrir;
+        btnConocerMas.setAttribute("aria-expanded", String(abrir));
+        btnConocerMas.textContent = abrir
+            ? "Mostrar menos"
+            : "Conocer más";
+    });
+
+</script>
+<dialog
+    id="dialogNotificaciones"
+    aria-labelledby="tituloNotificaciones"
+>
+    <div class="notificaciones-encabezado">
+        <h2 id="tituloNotificaciones">Mis notificaciones</h2>
+
+        <button
+            type="button"
+            id="cerrarNotificaciones"
+            aria-label="Cerrar notificaciones"
+        >
+            ✕
+        </button>
+    </div>
+
+    <p id="estadoNotificaciones" role="status"></p>
+
+    <div id="listaNotificaciones"></div>
+
+    <button
+        type="button"
+        id="actualizarNotificaciones"
+        class="btn-outline"
+    >
+        Actualizar
+    </button>
+</dialog>
+
+<script src="js/notificaciones.js"></script>
 
 
     </body>

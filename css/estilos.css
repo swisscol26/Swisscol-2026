@@ -508,8 +508,16 @@ section{
 
     gap:35px;
 
+    grid-auto-rows:1fr;
+
 }
 .producto{
+
+    display:flex;
+
+    flex-direction:column;
+
+    min-width:0;
 
     background:#fff;
 
@@ -536,6 +544,8 @@ section{
 
     height:260px;
 
+    flex-shrink:0;
+
     background:#f8f8f8;
 
     display:flex;
@@ -552,6 +562,12 @@ section{
 
     width:100%;
 
+    height:100%;
+
+    object-fit:contain;
+
+    padding:12px;
+
     transition:.4s;
 
 }
@@ -562,6 +578,12 @@ section{
 
 }
 .producto-info{
+
+    display:flex;
+
+    flex-direction:column;
+
+    flex:1;
 
     padding:25px;
 
@@ -574,6 +596,14 @@ section{
     margin:15px 0;
 
     font-size:22px;
+
+    line-height:1.3;
+
+    min-height:3.9em;
+
+    flex:1;
+
+    overflow-wrap:anywhere;
 
 }
 
@@ -1976,7 +2006,11 @@ section{
     top:0;
     right:-430px;
     width:400px;
-    height:100%;
+    height:100vh;
+    height:100dvh;
+    display:flex;
+    flex-direction:column;
+    overflow:hidden;
     background:#fff;
     z-index:9999;
     transition:.4s;
@@ -1988,6 +2022,7 @@ section{
 }
 
 .historial-header{
+    flex-shrink:0;
     padding:25px;
     border-bottom:1px solid #eee;
     display:flex;
@@ -2001,7 +2036,40 @@ section{
 }
 
 .lista-pedidos{
+    flex:1;
+    min-height:0;
+    min-width:0;
     padding:25px;
+    padding-bottom:calc(25px + env(safe-area-inset-bottom, 0px));
+    overflow-y:scroll;
+    overflow-x:hidden;
+    overscroll-behavior-y:contain;
+    scrollbar-gutter:stable;
+    scrollbar-color:#a31f23 #f4e8e9;
+}
+
+.lista-pedidos::-webkit-scrollbar{
+    width:10px;
+}
+
+.lista-pedidos::-webkit-scrollbar-track{
+    background:#f4e8e9;
+    border-radius:10px;
+}
+
+.lista-pedidos::-webkit-scrollbar-thumb{
+    background:#a31f23;
+    border:2px solid #f4e8e9;
+    border-radius:10px;
+}
+
+.lista-pedidos::-webkit-scrollbar-thumb:hover{
+    background:#84181c;
+}
+
+.lista-pedidos:focus-visible{
+    outline:2px solid #a31f23;
+    outline-offset:-3px;
 }
 
 .pedido-card{
@@ -2248,4 +2316,736 @@ section{
         right:20px;
         bottom:20px;
     }
+
 }
+
+/* Ajustes del panel de búsqueda */
+#panelBusqueda {
+    width: 340px;
+    max-width: calc(100vw - 32px);
+    max-height: 75vh;
+    overflow-y: auto;
+    padding: 20px;
+    box-sizing: border-box;
+    color: #333;
+}
+
+#panelBusqueda label {
+    display: block;
+    margin: 14px 0 6px;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+#panelBusqueda label:first-child {
+    margin-top: 0;
+}
+
+#panelBusqueda input,
+#panelBusqueda select {
+    display: block;
+    width: 100%;
+    min-height: 42px;
+    padding: 10px 12px;
+    box-sizing: border-box;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background: white;
+    color: #333;
+    font: inherit;
+    font-size: 14px;
+}
+
+#panelBusqueda input:focus,
+#panelBusqueda select:focus {
+    outline: 2px solid #A31F23;
+    outline-offset: 2px;
+}
+
+#panelBusqueda #limpiarFiltros {
+    display: block;
+    position: static;
+    width: 100%;
+    height: auto;
+    min-height: 44px;
+    margin: 18px 0 0;
+    padding: 12px;
+    box-sizing: border-box;
+    border: 2px solid #A31F23;
+    border-radius: 10px;
+    background: white;
+    color: #A31F23;
+    font: inherit;
+    font-size: 14px;
+    font-weight: bold;
+    line-height: 1.4;
+    white-space: normal;
+    cursor: pointer;
+}
+
+#panelBusqueda #limpiarFiltros:hover {
+    background: #A31F23;
+    color: white;
+}
+
+#panelBusqueda #limpiarFiltros:focus-visible {
+    outline: 2px solid #A31F23;
+    outline-offset: 3px;
+}
+
+#panelBusqueda #mensajeFiltros {
+    margin: 12px 0 0;
+    font-size: 13px;
+    line-height: 1.5;
+    color: #666;
+}
+
+/* Ventana del producto con altura limitada */
+#modalProducto .modal-contenido {
+    width: 92%;
+    max-width: 950px;
+    max-height: 85vh;
+    overflow-y: auto;
+}
+
+/* Características compactas */
+#modalProducto .caracteristicas-producto {
+    margin: 16px 0;
+    padding: 14px;
+    min-height: 0;
+    background: #f7f7f7;
+    border-radius: 10px;
+}
+
+#modalProducto .caracteristicas-producto h3 {
+    margin: 0 0 10px;
+    font-size: 16px;
+}
+
+#modalProducto .caracteristicas-producto p {
+    margin: 0;
+    max-height: 180px;
+    overflow-y: auto;
+    font-size: 13px;
+    line-height: 1.5;
+}
+
+#colecciones a.coleccion {
+    display: block;
+    text-decoration: none;
+    color: inherit;
+    cursor: pointer;
+}
+
+#colecciones a.coleccion:focus-visible {
+    outline: 3px solid #A31F23;
+    outline-offset: 5px;
+}
+
+#productos {
+    scroll-margin-top: 120px;
+}
+
+#guiaProductos {
+    width: min(480px, calc(100vw - 32px));
+    max-height: 85vh;
+    margin: auto;
+    padding: 24px;
+    box-sizing: border-box;
+    overflow-y: auto;
+    border: 0;
+    border-radius: 16px;
+    color: #333;
+    background: white;
+    box-shadow: 0 15px 45px rgba(0, 0, 0, .25);
+}
+
+#guiaProductos::backdrop {
+    background: rgba(0, 0, 0, .6);
+}
+
+#guiaProductos .guia-encabezado {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+}
+
+#guiaProductos h2 {
+    flex: 1;
+    margin: 0;
+    font-size: 23px;
+}
+
+#guiaProductos #cerrarGuia {
+    padding: 4px 8px;
+    border: 0;
+    background: transparent;
+    color: #333;
+    font-size: 22px;
+    cursor: pointer;
+}
+
+#guiaProductos p {
+    margin: 14px 0;
+    line-height: 1.5;
+}
+
+#guiaProductos label {
+    display: block;
+    margin: 18px 0 8px;
+    font-weight: 600;
+}
+
+#guiaProductos select,
+#guiaProductos input[type="number"] {
+    width: 100%;
+    padding: 12px;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font: inherit;
+    background: white;
+    color: #333;
+}
+
+#guiaProductos .guia-disponibilidad {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 14px;
+    font-weight: normal;
+}
+
+#guiaProductos input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+    flex-shrink: 0;
+    accent-color: #A31F23;
+}
+
+#guiaProductos #verResultadosGuia {
+    width: 100%;
+    margin-top: 10px;
+}
+
+#guiaProductos :focus-visible {
+    outline: 2px solid #A31F23;
+    outline-offset: 3px;
+}
+
+#nosotrosAmpliado {
+    margin-top: 24px;
+    padding: 20px;
+    border-left: 4px solid #A31F23;
+    border-radius: 8px;
+    background: #f7f7f7;
+}
+
+#nosotrosAmpliado h3 {
+    margin: 0 0 8px;
+    font-size: 18px;
+}
+
+#nosotrosAmpliado p {
+    margin: 0 0 20px;
+    font-size: 14px;
+    line-height: 1.7;
+}
+
+#nosotrosAmpliado p:last-child {
+    margin-bottom: 0;
+}
+
+#btnNotificaciones { position: relative; flex-shrink: 0; }
+#btnNotificaciones.con-pendientes { box-shadow: 0 0 0 2px #e53935; }
+.notificaciones-badge:not([hidden]) {
+    position: absolute;
+    top: -5px;
+    right: -6px;
+    display: grid;
+    place-items: center;
+    min-width: 21px;
+    height: 21px;
+    padding: 0 5px;
+    border-radius: 999px;
+    background: #c62828;
+    border: 2px solid white;
+    color: white;
+    font-size: 11px;
+    font-weight: 700;
+    line-height: 1;
+    pointer-events: none;
+}
+/* Tarjeta de pago dentro de Mis pedidos */
+.pago-nequi {
+    margin-top: 18px;
+    padding: 18px;
+    border: 1px solid #eed8d9;
+    border-top: 4px solid #a31f23;
+    border-radius: 16px;
+    background: linear-gradient(160deg, #fff5f5 0%, #fff 65%);
+    box-shadow: 0 6px 20px rgba(88, 20, 23, .07);
+    color: #292326;
+    overflow-wrap: anywhere;
+}
+.pago-nequi h4 {
+    margin: 0 0 16px;
+    color: #8d191d;
+    font-size: 18px;
+    font-weight: 700;
+    line-height: 1.35;
+}
+.pago-nequi .pago-datos {
+    font-size: 13px;
+    line-height: 1.6;
+}
+.pago-nequi .pago-datos > p {
+    margin: 0;
+    color: #292326;
+}
+.pago-nequi .pago-dato-etiqueta {
+    display: block;
+    margin-bottom: 5px;
+    color: #716165;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: .07em;
+    text-transform: uppercase;
+}
+.pago-nequi .pago-total {
+    padding: 16px 14px;
+    border-radius: 12px;
+    background: #a31f23;
+    box-shadow: 0 4px 12px rgba(163, 31, 35, .14);
+}
+.pago-nequi .pago-total .pago-dato-etiqueta { color: #ffe2e3; }
+.pago-nequi .pago-total strong {
+    display: block;
+    color: #fff;
+    font-size: clamp(21px, 5vw, 26px);
+    line-height: 1.3;
+    font-weight: 700;
+    font-variant-numeric: tabular-nums;
+}
+.pago-nequi .pago-numero {
+    margin-top: 14px;
+    padding: 13px 14px;
+    border: 1px solid #ebdfe0;
+    border-radius: 10px;
+    background: #fff;
+}
+.pago-nequi .pago-numero strong {
+    display: block;
+    font-size: 21px;
+    line-height: 1.35;
+    letter-spacing: .025em;
+    font-variant-numeric: tabular-nums;
+    user-select: all;
+}
+.pago-nequi .pago-titular { padding: 14px 0 12px; }
+.pago-nequi .pago-titular strong {
+    display: block;
+    font-size: 14px;
+    line-height: 1.5;
+    font-weight: 600;
+}
+.pago-nequi .pago-datos > .pago-plazo {
+    padding: 8px 10px;
+    border-radius: 8px;
+    background: #fff1dc;
+    color: #775018;
+    font-size: 12px;
+    font-weight: 600;
+}
+.pago-nequi .pago-vencimiento {
+    margin: 8px 0 18px;
+    color: #6d585b;
+    font-size: 12px;
+    line-height: 1.6;
+}
+.pago-nequi .pago-referencia-etiqueta {
+    display: block;
+    padding-top: 16px;
+    border-top: 1px solid #eddddd;
+    color: #33282b;
+    font-size: 13px;
+    font-weight: 700;
+}
+.pago-nequi input {
+    display: block;
+    width: 100%;
+    min-width: 0;
+    min-height: 48px;
+    box-sizing: border-box;
+    margin: 8px 0;
+    padding: 12px;
+    border: 1px solid #ccbfc1;
+    border-radius: 10px;
+    background: #fff;
+    color: #292326;
+    font: inherit;
+    font-size: 14px;
+    transition: border-color .2s, box-shadow .2s;
+}
+.pago-nequi input::placeholder { color: #827278; font-size: 12px; }
+.pago-nequi input:focus-visible {
+    outline: 2px solid #a31f23;
+    outline-offset: 2px;
+    border-color: #a31f23;
+    box-shadow: 0 0 0 4px rgba(163, 31, 35, .08);
+}
+.pago-nequi .pago-ayuda {
+    margin: 8px 0 14px;
+    color: #76656a;
+    font-size: 11px;
+    line-height: 1.6;
+}
+.pago-nequi .pago-confirmar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    width: 100%;
+    min-height: 48px;
+    padding: 13px 10px;
+    border: 1px solid #a31f23;
+    border-radius: 11px;
+    background: #a31f23;
+    color: #fff;
+    font: inherit;
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 1.4;
+    cursor: pointer;
+    box-shadow: 0 5px 12px rgba(163, 31, 35, .2);
+    transition: background .2s, box-shadow .2s;
+}
+.pago-nequi .pago-confirmar:hover:not(:disabled) {
+    background: #84181c;
+    box-shadow: 0 7px 16px rgba(163, 31, 35, .27);
+}
+.pago-nequi .pago-confirmar:focus-visible {
+    outline: 3px solid #a31f23;
+    outline-offset: 3px;
+}
+.pago-nequi .pago-confirmar:disabled,
+.pago-nequi input:disabled { opacity: .65; cursor: wait; }
+.pago-nequi .pago-mensaje:not(:empty) {
+    margin: 12px 0 0;
+    padding: 10px;
+    border-radius: 8px;
+    background: #fff0f0;
+    color: #8d191d;
+    font-size: 12px;
+    line-height: 1.6;
+}
+.pago-nequi .pago-mensaje:empty { display: none; }
+@media (max-width: 380px) {
+    .pago-nequi { padding: 13px; }
+    .pago-nequi input { font-size: 16px; }
+}
+@media (prefers-reduced-motion: reduce) {
+    .pago-nequi input, .pago-nequi .pago-confirmar { transition: none; }
+}
+
+/* Ventana de notificaciones */
+#dialogNotificaciones {
+    position: fixed;
+    inset: 0;
+    width: min(520px, calc(100vw - 32px));
+    max-height: 85vh;
+    margin: auto;
+    padding: 24px;
+    box-sizing: border-box;
+    overflow-y: auto;
+    border: none;
+    border-radius: 16px;
+    background: #fff;
+    color: #333;
+    box-shadow: 0 15px 45px rgba(0, 0, 0, .25);
+}
+
+#dialogNotificaciones::backdrop {
+    background: rgba(0, 0, 0, .6);
+}
+
+#dialogNotificaciones .notificaciones-encabezado {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+}
+
+#dialogNotificaciones h2 {
+    margin: 0;
+    font-size: 23px;
+}
+
+#dialogNotificaciones #cerrarNotificaciones {
+    width: 36px;
+    height: 36px;
+    flex-shrink: 0;
+    padding: 0;
+    border: none;
+    border-radius: 50%;
+    background: #f3f3f3;
+    color: #333;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+#dialogNotificaciones #estadoNotificaciones {
+    margin: 20px 0;
+    font-size: 14px;
+    line-height: 1.6;
+}
+
+#dialogNotificaciones #actualizarNotificaciones {
+    display: block;
+    width: 100%;
+    height: auto;
+    margin-top: 16px;
+    padding: 12px;
+    border: 2px solid #A31F23;
+    border-radius: 10px;
+    background: white;
+    color: #A31F23;
+    font: inherit;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+#dialogNotificaciones #actualizarNotificaciones:hover {
+    background: #A31F23;
+    color: white;
+}
+
+#dialogNotificaciones button:disabled {
+    opacity: .6;
+    cursor: wait;
+}
+
+#listaNotificaciones .notificacion {
+    margin-bottom: 14px;
+    padding: 16px;
+    border: 1px solid #ddd;
+    border-left: 4px solid #A31F23;
+    border-radius: 10px;
+    background: #fff8f8;
+}
+
+#listaNotificaciones .notificacion.leida {
+    border-left-color: #999;
+    background: #f7f7f7;
+}
+
+#listaNotificaciones h3 {
+    margin: 0 0 8px;
+    font-size: 16px;
+}
+
+#listaNotificaciones p {
+    margin: 8px 0;
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
+    line-height: 1.5;
+}
+
+#listaNotificaciones .notificacion-fecha {
+    font-size: 12px;
+    color: #666;
+}
+
+#dialogNotificaciones :focus-visible {
+    outline: 2px solid #A31F23;
+    outline-offset: 3px;
+}
+
+
+/* Acceso centrado; el perfil conserva su panel lateral. */
+body.auth-modal-abierto { overflow: hidden; }
+#dialogAuth {
+    position: fixed;
+    inset: 0;
+    margin: auto;
+    width: min(520px, calc(100% - 32px));
+    max-height: calc(100dvh - 32px);
+    padding: 0;
+    border: 0;
+    border-radius: 18px;
+    background: #fff;
+    color: #303030;
+    box-shadow: 0 24px 80px rgba(0,0,0,.25);
+    overflow: auto;
+}
+#dialogAuth::backdrop { background: rgba(0,0,0,.55); }
+#dialogAuth #panelAuth {
+    position: static;
+    width: 100%;
+    height: auto;
+    max-height: none;
+    box-shadow: none;
+    transition: none;
+}
+#dialogAuth .auth-header { padding: 24px 28px 18px; gap: 16px; }
+#dialogAuth .auth-header h2 { font-size: 24px; line-height: 1.3; }
+#dialogAuth #cerrarAuth {
+    display: grid;
+    place-items: center;
+    width: 36px;
+    height: 36px;
+    flex-shrink: 0;
+    border: 0;
+    border-radius: 50%;
+    background: #f3f3f3;
+    color: #444;
+    font-size: 20px;
+}
+#dialogAuth #cerrarAuth:hover { background: #fbe7e8; color: #a31f23; }
+#dialogAuth .auth-body { padding: 24px 28px 28px; }
+#dialogAuth .auth-form input { font: inherit; font-size: 15px; background: #fafafa; }
+#dialogAuth .auth-form input:focus { outline: 2px solid #a31f23; outline-offset: 2px; background: #fff; }
+#dialogAuth .auth-form .btn-rojo { width: 100%; min-height: 48px; }
+#dialogAuth .auth-form p { font-size: 14px; line-height: 1.6; }
+#dialogAuth :is(button, a):focus-visible { outline: 2px solid #a31f23; outline-offset: 3px; }
+@media (max-width: 480px) {
+    #dialogAuth .auth-header { padding: 20px; }
+    #dialogAuth .auth-body { padding: 20px; }
+    #dialogAuth .auth-form input { font-size: 16px; }
+}
+
+/* Separación de las acciones de la cuenta. */
+#perfilUsuario > button { display: block; width: 100%; }
+#perfilUsuario > button + button { margin-top: 16px; }
+
+/*=====================================
+    FORMULARIO DE ENVÍO
+=====================================*/
+
+#dialogEnvio {
+    position: fixed;
+    inset: 0;
+    margin: auto;
+    width: min(560px, calc(100% - 32px));
+    max-height: calc(100dvh - 32px);
+    padding: 28px;
+    box-sizing: border-box;
+    overflow-y: auto;
+    border: none;
+    border-radius: 18px;
+    background: #fff;
+    color: #303030;
+    box-shadow: 0 24px 80px rgba(0, 0, 0, 0.25);
+}
+
+#dialogEnvio::backdrop {
+    background: rgba(0, 0, 0, 0.55);
+}
+
+#dialogEnvio .envio-encabezado {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 16px;
+}
+
+#tituloEnvio {
+    margin: 0;
+    font-size: 24px;
+}
+
+#cerrarEnvio {
+    display: grid;
+    place-items: center;
+    width: 36px;
+    height: 36px;
+    flex-shrink: 0;
+    border: none;
+    border-radius: 50%;
+    background: #f3f3f3;
+    color: #444;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+#dialogEnvio p {
+    margin: 0 0 20px;
+    color: #666;
+    font-size: 14px;
+    line-height: 1.6;
+}
+
+#dialogEnvio label {
+    display: block;
+    margin-bottom: 7px;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+#dialogEnvio input,
+#dialogEnvio textarea {
+    display: block;
+    width: 100%;
+    box-sizing: border-box;
+    margin-bottom: 18px;
+    padding: 12px 14px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    background: #fafafa;
+    color: #303030;
+    font: inherit;
+    font-size: 16px;
+}
+
+#dialogEnvio textarea {
+    resize: vertical;
+    min-height: 90px;
+}
+
+#dialogEnvio input:focus,
+#dialogEnvio textarea:focus {
+    outline: 2px solid #a31f23;
+    outline-offset: 2px;
+    background: #fff;
+}
+
+#dialogEnvio button:focus-visible {
+    outline: 2px solid #a31f23;
+    outline-offset: 3px;
+}
+
+#dialogEnvio #mensajeEnvio {
+    color: #a31f23;
+}
+
+#mensajeEnvio:empty {
+    display: none;
+}
+
+#enviarSolicitudPedido {
+    width: 100%;
+    min-height: 48px;
+}
+
+#dialogEnvio button:disabled {
+    opacity: 0.6;
+    cursor: wait;
+}
+
+@media (max-width: 480px) {
+    #dialogEnvio {
+        padding: 20px;
+    }
+}
+
+/* Información de compra y atención al cliente */
+.ayuda-cliente { max-width: 1100px; margin: 0 auto; padding: 48px 24px; }
+.ayuda-cliente, .garantia-cliente { scroll-margin-top: 120px; }
+.ayuda-cliente h2 { margin-bottom: 24px; }
+.ayuda-cliente details { padding: 18px 0; border-bottom: 1px solid #ddd; }
+.ayuda-cliente summary { cursor: pointer; font-weight: 600; line-height: 1.5; }
+.ayuda-cliente p { margin: 16px 0; line-height: 1.7; }
+.ayuda-cliente a { color: #a31f23; text-decoration: underline; overflow-wrap: anywhere; }
+.garantia-cliente { margin-top: 48px; }
+.newsletter a.btn-rojo { display: inline-block; text-decoration: none; }
