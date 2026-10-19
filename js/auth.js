@@ -100,8 +100,8 @@ function abrirPanelAuth() {
     btnUsuarioAuth.setAttribute("aria-expanded", "true");
     configurarPresentacionAuth(perfilUsuario.classList.contains("activo"));
     if (dialogAuth.open) {
-        const formulario = formRegistro.style.display === "block" ? formRegistro : formLogin;
-        formulario.querySelector("input").focus();
+        const formulario = [...panelAuth.querySelectorAll("form")].find(form => form.style.display !== "none" && form.offsetParent !== null);
+        formulario?.querySelector("input")?.focus();
     }
 }
 
@@ -163,6 +163,7 @@ mostrarLogin.addEventListener("click", (e) => {
 });
 
 function mostrarFormularioLogin() {
+    ocultarRecuperacion();
     perfilUsuario.classList.remove("activo");
     tituloAuth.textContent = "Iniciar sesión";
     configurarPresentacionAuth(false);
@@ -343,6 +344,7 @@ function iniciarSesion(usuario) {
 }
 
 function mostrarSesion(usuario) {
+    ocultarRecuperacion();
 
     formLogin.style.display = "none";
     formRegistro.style.display = "none";
@@ -479,3 +481,94 @@ async function verificarSesion() {
 }
 
 verificarSesion();
+
+function ocultarRecuperacion() {
+    document.getElementById("formRecuperacion").style.display = "none";
+    document.getElementById("formRestablecer").style.display = "none";
+    document.getElementById("mensajeRecuperacion").textContent = "";
+}
+
+function abrirRecuperacion(restablecer = false) {
+    formLogin.style.display = "none";
+    formRegistro.style.display = "none";
+    perfilUsuario.classList.remove("activo");
+    ocultarRecuperacion();
+    const form = document.getElementById(restablecer ? "formRestablecer" : "formRecuperacion");
+    form.style.display = "block";
+    tituloAuth.textContent = restablecer ? "Nueva contraseña" : "Recuperar contraseña";
+    form.querySelector("input").focus();
+}
+
+document.getElementById("mostrarRecuperacion").addEventListener("click", e => {
+    e.preventDefault(); abrirRecuperacion();
+});
+document.getElementById("mostrarRestablecer").addEventListener("click", e => {
+    e.preventDefault(); abrirRecuperacion(true);
+});
+document.querySelectorAll(".volver-login").forEach(enlace => enlace.addEventListener("click", e => {
+    e.preventDefault(); mostrarFormularioLogin();
+}));
+
+for (const id of ["formRecuperacion", "formRestablecer"]) {
+    const form = document.getElementById(id);
+    form.addEventListener("submit", async e => {
+        e.preventDefault();
+        const boton = form.querySelector("button[type=submit]");
+        if (boton.disabled) return;
+        const cambio = id === "formRestablecer";
+        const mensaje = document.getElementById("mensajeRecuperacion");
+        const datos = cambio ? {
+            codigo: document.getElementById("recuperarCodigo").value.trim(),
+            password: document.getElementById("recuperarPassword").value,
+            confirmarPassword: document.getElementById("recuperarConfirmar").value
+        } : { correo: document.getElementById("recuperarCorreo").value.trim() };
+        if (cambio && datos.password !== datos.confirmarPassword) {
+            mensaje.textContent = "Las contraseñas no coinciden."; return;
+        }
+        boton.disabled = true;
+        mensaje.textContent = "Procesando…";
+        try {
+            const respuesta = await fetch(`${API_AUTH_URL}/${cambio ? "restablecer" : "recuperar"}`, {
+                method: "POST", headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(datos), signal: AbortSignal.timeout(15000)
+            });
+            const resultado = await respuesta.json();
+            if (respuesta.ok) {
+                form.reset();
+                if (cambio) {
+                    localStorage.removeItem("sesionSwisscol");
+                    btnUsuarioAuth.classList.remove("usuario-activo");
+                    contenidoUsuario.textContent = "👤";
+                    document.dispatchEvent(new CustomEvent("swisscol:sesion", { detail: { activa: false } }));
+                    mostrarFormularioLogin();
+                } else abrirRecuperacion(true);
+            }
+            mensaje.textContent = resultado.mensaje || "No fue posible completar la solicitud.";
+        } catch {
+            mensaje.textContent = "No se pudo confirmar la respuesta. Revisa tu correo o intenta iniciar sesión antes de repetir el cambio.";
+        } finally { boton.disabled = false; }
+    });
+}
+
+// El carrito se conserva; la cookie del servidor es la única prueba de autenticación.
+async function exigirSesionCompra() {
+    try {
+        const respuesta = await fetch(`${API_AUTH_URL}/sesion`, {
+            method: "POST", credentials: "include", signal: AbortSignal.timeout(10000)
+        });
+        if (respuesta.ok) return true;
+        if (respuesta.status !== 401) throw new Error("No se pudo verificar la sesión.");
+        localStorage.removeItem("sesionSwisscol");
+        btnUsuarioAuth.classList.remove("usuario-activo");
+        contenidoUsuario.textContent = "👤";
+        document.dispatchEvent(new CustomEvent("swisscol:sesion", { detail: { activa: false } }));
+        document.getElementById("dialogEnvio")?.close();
+        mostrarFormularioLogin();
+        abrirPanelAuth();
+        document.getElementById("mensajeRecuperacion").textContent =
+            "Para comprar debes iniciar sesión o crear una cuenta. Tu carrito se conserva.";
+    } catch {
+        alert("No pudimos verificar tu sesión. Intenta nuevamente antes de continuar con la compra.");
+    }
+    return false;
+}

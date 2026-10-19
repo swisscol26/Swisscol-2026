@@ -45,7 +45,7 @@ async function cargarDatosPago() {
     return datos;
 }
 
-btnFinalizarCompra.addEventListener("click", () => {
+btnFinalizarCompra.addEventListener("click", async () => {
     if (enviandoPedido) return;
 
     if (carrito.length === 0) {
@@ -53,6 +53,10 @@ btnFinalizarCompra.addEventListener("click", () => {
         return;
     }
 
+    btnFinalizarCompra.disabled = true;
+    const autorizado = await exigirSesionCompra();
+    btnFinalizarCompra.disabled = false;
+    if (!autorizado) return;
     mensajeEnvio.textContent = "";
 
     if (!dialogEnvio.open) {
@@ -83,6 +87,11 @@ async function finalizarCompra(event) {
 
     if (enviandoPedido) return;
     if (!formDatosEnvio.reportValidity()) return;
+
+    enviandoPedido = true;
+    const autorizado = await exigirSesionCompra();
+    enviandoPedido = false;
+    if (!autorizado) return;
 
     mensajeEnvio.textContent = "";
 

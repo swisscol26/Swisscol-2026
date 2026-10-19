@@ -784,12 +784,31 @@
                 <input type="password" id="loginPassword" placeholder="Contraseña" required>
 
                 <button type="submit" class="btn-rojo">Ingresar</button>
+                <p><a href="#" id="mostrarRecuperacion">Olvidé mi contraseña</a></p>
 
                 <p>
                     ¿No tienes cuenta?
                     <a href="#" id="mostrarRegistro">Crear cuenta</a>
                 </p>
             </form>
+
+            <form id="formRecuperacion" class="auth-form" style="display:none">
+                <p>Escribe el correo de tu cuenta para solicitar un código de recuperación.</p>
+                <input type="email" id="recuperarCorreo" aria-label="Correo de tu cuenta" placeholder="Correo electrónico" autocomplete="email" maxlength="100" required>
+                <button type="submit" class="btn-rojo">Enviar código</button>
+                <p><a href="#" id="mostrarRestablecer">Ya tengo un código</a></p>
+                <p><a href="#" class="volver-login">Volver a iniciar sesión</a></p>
+            </form>
+            <form id="formRestablecer" class="auth-form" style="display:none">
+                <p>Pega el código recibido por correo. Es válido durante 15 minutos.</p>
+                <input type="text" id="recuperarCodigo" aria-label="Código de recuperación" placeholder="Código de recuperación" autocomplete="one-time-code" minlength="43" maxlength="43" required>
+                <input type="password" id="recuperarPassword" aria-label="Nueva contraseña" placeholder="Nueva contraseña" autocomplete="new-password" minlength="8" maxlength="128" required>
+                <input type="password" id="recuperarConfirmar" aria-label="Confirmar nueva contraseña" placeholder="Confirmar contraseña" autocomplete="new-password" minlength="8" maxlength="128" required>
+                <p>Usa de 8 a 128 caracteres con mayúscula, minúscula y número.</p>
+                <button type="submit" class="btn-rojo">Guardar contraseña</button>
+                <p><a href="#" class="volver-login">Volver a iniciar sesión</a></p>
+            </form>
+            <p id="mensajeRecuperacion" role="status" aria-live="polite"></p>
 
             <form id="formRegistro" class="auth-form">
                 <input type="text" id="registroNombre" placeholder="Nombre completo" required>
