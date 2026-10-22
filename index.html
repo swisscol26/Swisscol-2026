@@ -780,8 +780,8 @@
         <div class="auth-body">
 
             <form id="formLogin" class="auth-form activo">
-                <input type="email" id="loginCorreo" placeholder="Correo electrónico" required>
-                <input type="password" id="loginPassword" placeholder="Contraseña" required>
+                <input type="email" id="loginCorreo" maxlength="100" placeholder="Correo electrónico" required>
+                <input type="password" id="loginPassword" maxlength="128" placeholder="Contraseña" required>
 
                 <button type="submit" class="btn-rojo">Ingresar</button>
                 <p><a href="#" id="mostrarRecuperacion">Olvidé mi contraseña</a></p>
@@ -811,10 +811,10 @@
             <p id="mensajeRecuperacion" role="status" aria-live="polite"></p>
 
             <form id="formRegistro" class="auth-form">
-                <input type="text" id="registroNombre" placeholder="Nombre completo" required>
-                <input type="email" id="registroCorreo" placeholder="Correo electrónico" required>
-                <input type="password" id="registroPassword" placeholder="Contraseña" required>
-                <input type="password" id="registroConfirmar" placeholder="Confirmar contraseña" required>
+                <input type="text" id="registroNombre" minlength="3" maxlength="50" placeholder="Nombre completo" required>
+                <input type="email" id="registroCorreo" maxlength="100" placeholder="Correo electrónico" required>
+                <input type="password" id="registroPassword" maxlength="128" minlength="8" placeholder="Contraseña" required>
+                <input type="password" id="registroConfirmar" maxlength="128" minlength="8" placeholder="Confirmar contraseña" required>
 
                 <button type="submit" class="btn-rojo">Registrarme</button>
 

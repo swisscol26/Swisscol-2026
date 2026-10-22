@@ -572,3 +572,28 @@ async function exigirSesionCompra() {
     }
     return false;
 }
+
+// Cada contraseña conserva su propio control de visibilidad.
+panelAuth.querySelectorAll('input[type="password"]').forEach(campo => {
+    const contenedor = document.createElement("div");
+    contenedor.className = "campo-password";
+    campo.before(contenedor);
+    contenedor.appendChild(campo);
+    const boton = document.createElement("button");
+    boton.type = "button";
+    boton.className = "mostrar-password";
+    boton.setAttribute("aria-controls", campo.id);
+    boton.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12Z"/><circle cx="12" cy="12" r="3"/><path class="ojo-tachado" d="m3 3 18 18"/></svg>';
+    function actualizar(visible) {
+        campo.type = visible ? "text" : "password";
+        boton.setAttribute("aria-label", (visible ? "Ocultar " : "Mostrar ") + campo.getAttribute("aria-label").toLowerCase());
+        boton.setAttribute("aria-pressed", String(visible));
+        boton.title = visible ? "Ocultar contraseña" : "Mostrar contraseña";
+    }
+    actualizar(false);
+    boton.addEventListener("click", () => actualizar(campo.type === "password"));
+    campo.form.addEventListener("reset", () => actualizar(false));
+    cerrarAuth.addEventListener("click", () => actualizar(false));
+    dialogAuth.addEventListener("close", () => actualizar(false));
+    contenedor.appendChild(boton);
+});

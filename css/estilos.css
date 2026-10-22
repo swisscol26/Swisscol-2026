@@ -3049,3 +3049,13 @@ body.auth-modal-abierto { overflow: hidden; }
 .ayuda-cliente a { color: #a31f23; text-decoration: underline; overflow-wrap: anywhere; }
 .garantia-cliente { margin-top: 48px; }
 .newsletter a.btn-rojo { display: inline-block; text-decoration: none; }
+
+/* Control accesible para mostrar y ocultar contraseñas. */
+.auth-form .campo-password { position: relative; margin-bottom: 15px; }
+.auth-form .campo-password input { width: 100%; margin-bottom: 0; padding-right: 52px; }
+.auth-form .mostrar-password { position: absolute; right: 4px; top: 50%; transform: translateY(-50%); width: 44px; height: 44px; display: grid; place-items: center; padding: 10px; border: 0; border-radius: 8px; background: transparent; color: #555; cursor: pointer; }
+.auth-form .mostrar-password:hover { background: #eee; color: #a31f23; }
+.auth-form .mostrar-password:focus-visible { outline: 2px solid #a31f23; outline-offset: -2px; }
+.mostrar-password svg { width: 24px; height: 24px; }
+.mostrar-password .ojo-tachado { display: none; }
+.mostrar-password[aria-pressed="true"] .ojo-tachado { display: block; }
