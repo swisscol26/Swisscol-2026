@@ -2984,6 +2984,7 @@ body.auth-modal-abierto { overflow: hidden; }
 }
 
 #dialogEnvio input,
+#dialogEnvio select,
 #dialogEnvio textarea {
     display: block;
     width: 100%;
@@ -3004,6 +3005,7 @@ body.auth-modal-abierto { overflow: hidden; }
 }
 
 #dialogEnvio input:focus,
+#dialogEnvio select:focus,
 #dialogEnvio textarea:focus {
     outline: 2px solid #a31f23;
     outline-offset: 2px;
@@ -3059,3 +3061,5 @@ body.auth-modal-abierto { overflow: hidden; }
 .mostrar-password svg { width: 24px; height: 24px; }
 .mostrar-password .ojo-tachado { display: none; }
 .mostrar-password[aria-pressed="true"] .ojo-tachado { display: block; }
+
+#dialogEnvio select:disabled { background-color: #eee; color: #666; cursor: not-allowed; }

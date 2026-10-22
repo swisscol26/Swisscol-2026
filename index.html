@@ -888,24 +888,14 @@
         >
 
         <label for="envioDepartamento">Departamento</label>
-        <input
-            type="text"
-            id="envioDepartamento"
-            name="departamento"
-            autocomplete="shipping address-level1"
-            maxlength="100"
-            required
-        >
+        <select id="envioDepartamento" name="departamento" autocomplete="shipping address-level1" required>
+            <option value="">Selecciona tu departamento</option>
+        </select>
 
         <label for="envioCiudad">Ciudad o municipio</label>
-        <input
-            type="text"
-            id="envioCiudad"
-            name="ciudad"
-            autocomplete="shipping address-level2"
-            maxlength="100"
-            required
-        >
+        <select id="envioCiudad" name="ciudad" autocomplete="shipping address-level2" required disabled>
+            <option value="">Primero selecciona un departamento</option>
+        </select>
 
         <label for="envioDireccion">Dirección completa</label>
         <input
@@ -964,6 +954,7 @@
 
     <script src="js/auth.js"></script>
 
+    <script src="js/ubicaciones-colombia.js"></script>
     <script src="js/historial.js"></script>
 
     <script src="js/app.js"></script>
